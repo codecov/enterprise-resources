@@ -2,10 +2,6 @@ terraform {
   version = "~>0.11"
 }
 
-provider "azurerm" {
-  version = "~>1.28"
-}
-
 provider "local" {
   version = "~>1.2"
 }

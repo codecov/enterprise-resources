@@ -58,7 +58,7 @@ defined in a `terraform.tfvars` file.  More info on
 | name | description | default |
 | --- | --- | --- |
 | `region` | AWS region | us-east-1 |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.4.6 |
+| `codecov_version` | Version of codecov enterprise to deploy | 4.4.7 |
 | `cluster_name` | Google Kubernetes Engine (GKE) cluster name | default-codecov-cluster |
 | `postgres_instance_class` | Instance class for PostgreSQL RDS instance | db.t3.micro |
 | `postgres_skip_final_snapshot` | Whether to skip taking a final snapshot when destroying the Postgres DB. It is recommended to keep this set to 0 in production in order to avoid unintended data loss. | 0 |

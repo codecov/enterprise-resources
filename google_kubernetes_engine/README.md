@@ -54,7 +54,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `gcloud_project` | Google cloud project name | required |
 | `region` | Google cloud region | us-east4 |
 | `zone` | Default Google cloud zone for zone-specific services | us-east4a |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.4.6 |
+| `codecov_version` | Version of codecov enterprise to deploy | 4.4.7 |
 | `cluster_name` | Google Kubernetes Engine (GKE) cluster name | default-codecov-cluster |
 | `web_node_pool_count` | Number of nodes to create in the web node pool | 1 |
 | `worker_node_pool_count` | Number of nodes to create in the worker node pool | 1 |

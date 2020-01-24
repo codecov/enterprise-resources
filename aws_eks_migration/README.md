@@ -65,7 +65,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `region` | AWS region | us-east-1 |
 | `vpc_id` | ID of VPC containing your PostgreSQL instance. This VPC will be used for EKS | |
 | `vpc_private_subnet_ids` | List of private subnet IDs to use for EKS nodes | `[]` |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.4.6 |
+| `codecov_version` | Version of codecov enterprise to deploy | 4.4.7 |
 | `cluster_name` | Google Kubernetes Engine (GKE) cluster name | default-codecov-cluster |
 | `postgres_url` | URL for your postgres instance | |
 | `s3_bucket` | S3 bucket name used for report storage | |

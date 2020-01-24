@@ -60,7 +60,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `location` | Azure location | eastus |
 | `azurerm_client_id` | `appId` from the SP creation output | |
 | `azurerm_client_secret` | `password` from the SP creation output | |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.4.6 |
+| `codecov_version` | Version of codecov enterprise to deploy | 4.4.7 |
 | `cluster_name` | Google Kubernetes Engine (GKE) cluster name | default-codecov-cluster |
 | `node_pool_count` | Number of nodes to configure in the node pool | 5 |
 | `node_pool_vm_size` | VM size to use for node pool nodes | Standard_B2s |

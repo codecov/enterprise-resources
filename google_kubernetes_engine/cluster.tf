@@ -1,4 +1,5 @@
 provider "google" {
+  version = "~>2.5"
   project = "${var.gcloud_project}"
   region = "${var.region}"
   zone = "${var.zone}"
@@ -37,12 +38,23 @@ resource "google_container_cluster" "primary" {
   master_auth {
     username = ""
     password = ""
+
+    client_certificate_config {
+      issue_client_certificate = "true"
+    }
   }
 
   maintenance_policy {
     daily_maintenance_window {
       start_time = "01:00"
     }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      "master_auth.0.client_certificate_config.0.issue_client_certificate",
+      "network"
+    ]
   }
 }
 
@@ -65,6 +77,7 @@ resource "google_container_node_pool" "web" {
     }
 
     oauth_scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_only",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
@@ -90,6 +103,7 @@ resource "google_container_node_pool" "worker" {
     }
 
     oauth_scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_only",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
@@ -115,6 +129,7 @@ resource "google_container_node_pool" "minio" {
     }
 
     oauth_scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_only",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
@@ -125,6 +140,7 @@ resource "google_container_node_pool" "minio" {
 data "google_client_config" "current" {}
 
 provider "kubernetes" {
+  version = "~>1.6"
   load_config_file = "false"
   host = "https://${google_container_cluster.primary.endpoint}"
   cluster_ca_certificate = "${base64decode(google_container_cluster.primary.master_auth.0.cluster_ca_certificate)}"

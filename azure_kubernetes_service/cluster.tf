@@ -35,6 +35,7 @@ resource "local_file" "kubeconfig" {
 }
 
 provider "kubernetes" {
+  version = "~>1.7"
   load_config_file = "false"
   host = "${azurerm_kubernetes_cluster.codecov-enterprise.kube_config.0.host}"
   cluster_ca_certificate = "${base64decode(azurerm_kubernetes_cluster.codecov-enterprise.kube_config.0.cluster_ca_certificate)}"

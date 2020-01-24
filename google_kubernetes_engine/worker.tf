@@ -27,7 +27,7 @@ resource "kubernetes_deployment" "worker" {
         }
         container {
           name  = "workers"
-          image = "codecov/enterprise:v${var.codecov_version}"
+          image = "us.gcr.io/codecov-enterprise-sandbox/codecov-worker:latest"
           args  = ["worker", "--queue celery,uploads", "--concurrency 1"]
           env {
             name = "STATSD_HOST"

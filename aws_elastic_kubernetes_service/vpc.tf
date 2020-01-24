@@ -6,6 +6,7 @@ data "aws_availability_zones" "list" {}
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
+  version = "1.64.0"
   name = "codecov-vpc"
   cidr = "10.0.16.0/20"
   azs = [
