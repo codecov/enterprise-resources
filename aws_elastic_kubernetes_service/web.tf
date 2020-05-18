@@ -34,7 +34,7 @@ resource "kubernetes_deployment" "web" {
         }
         container {
           name  = "web"
-          image = "codecov/enterprise:v${var.codecov_version}"
+          image = "codecov/enterprise-web:v${var.codecov_version}"
           args  = ["web"]
           port {
             container_port = 5000

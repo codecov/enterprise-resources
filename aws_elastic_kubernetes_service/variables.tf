@@ -5,7 +5,7 @@ variable "region" {
 
 variable "codecov_version" {
   description = "Version of codecov enterprise to deploy"
-  default     = "4.4.12"
+  default     = "4.5.0"
 }
 
 variable "cluster_name" {
