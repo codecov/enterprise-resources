@@ -14,7 +14,7 @@ variable "zone" {
 
 variable "codecov_version" {
   description = "Version of codecov enterprise to deploy"
-  default     = "4.5.0"
+  default     = "4.5.5"
 }
 
 variable "cluster_name" {
@@ -40,10 +40,10 @@ variable "node_pool_machine_type" {
 variable "web_resources" {
   type = map
   default = {
-    replicas = 2
-    cpu_limit = "256m"
-    memory_limit = "512M"
-    cpu_request = "32m"
+    replicas       = 2
+    cpu_limit      = "256m"
+    memory_limit   = "512M"
+    cpu_request    = "32m"
     memory_request = "64M"
   }
 }
@@ -51,10 +51,10 @@ variable "web_resources" {
 variable "worker_resources" {
   type = map
   default = {
-    replicas = 3
-    cpu_limit = "512m"
-    memory_limit = "1024M"
-    cpu_request = "256m"
+    replicas       = 3
+    cpu_limit      = "512m"
+    memory_limit   = "1024M"
+    cpu_request    = "256m"
     memory_request = "512M"
   }
 }
@@ -62,10 +62,10 @@ variable "worker_resources" {
 variable "traefik_resources" {
   type = map
   default = {
-    replicas = 2
-    cpu_limit = "256m"
-    memory_limit = "512M"
-    cpu_request = "32m"
+    replicas       = 2
+    cpu_limit      = "256m"
+    memory_limit   = "512M"
+    cpu_request    = "32m"
     memory_request = "64M"
   }
 }
@@ -138,5 +138,5 @@ variable "resource_tags" {
 
 variable "scm_ca_cert" {
   description = "SCM CA certificate path"
-  default = ""
+  default     = ""
 }
