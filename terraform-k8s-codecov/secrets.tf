@@ -1,16 +1,16 @@
 resource "kubernetes_secret" "codecov-yml" {
   metadata {
-    name = "codecov-yml"
+    name        = "codecov-yml"
     annotations = var.resource_tags
   }
   data = {
-    "codecov.yml" = var.codecov_yml
+    "codecov.yml" = file(var.codecov_yml)
   }
 }
 
 resource "kubernetes_secret" "scm-ca-cert" {
   metadata {
-    name = "scm-ca-cert"
+    name        = "scm-ca-cert"
     annotations = var.resource_tags
   }
   data = {

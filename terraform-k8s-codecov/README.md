@@ -34,10 +34,10 @@ arise as a result of their use.
 
 | name | description | default |
 | --- | --- | --- |
-| `codecov_version` | version of Codecov Enterprise to deploy | 4.5.0 |
-| `web_replicas` | number of web pod replicas to run | 2 |
-| `worker_replicas` | number of worker pod replicas to run | 2 |
-| `codecov_yml` | path to your enterprise [codecov.yml](https://docs.codecov.io/docs/configuration). [example](codecov.yml.example) | required |
+| `codecov_version` | Version of Codecov Enterprise to deploy | 4.5.5 |
+| `web_replicas` | Number of web pod replicas to run | 2 |
+| `worker_replicas` | Number of worker pod replicas to run | 2 |
+| `codecov_yml` | Path to your enterprise [codecov.yml](https://docs.codecov.io/docs/configuration). [example](codecov.yml.example) | required |
 | `resource_tags` | Map of tags to include in compatible resources | `{application=codecov, environment=test}` |
 | `scm_ca_cert` | Optional SCM CA certificate path in PEM format | |
 
@@ -55,10 +55,10 @@ config.
     # example module definition
     module "codecov" {
       source = "git@github.com:codecov/enterprise-resources.git//terraform-k8s-codecov"
-      codecov_version = "4.5.0"
+      codecov_version = "4.5.5"
       web_replicas = "2"
       worker_replicas = "2"
-      codecov_yml = file("${path.module}/codecov.yml")
+      codecov_yml = "${path.module}/codecov.yml"
       resource_tags = {
         application = "codecov",
         environment = "test",

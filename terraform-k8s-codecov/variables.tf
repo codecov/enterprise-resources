@@ -1,6 +1,6 @@
 variable "codecov_version" {
   description = "Version of Codecov Enterprise to deploy"
-  default = "4.5.0"
+  default     = "4.5.5"
 }
 
 variable "web_replicas" {
@@ -28,5 +28,5 @@ variable "resource_tags" {
 # 
 variable "scm_ca_cert" {
   description = "SCM CA certificate path"
-  default = ""
+  default     = ""
 }
