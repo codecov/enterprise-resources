@@ -1,4 +1,6 @@
 # Codecov Enterprise Resources
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcodecov%2Fenterprise-resources.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcodecov%2Fenterprise-resources?ref=badge_shield)
+
 
 A repository of documentation, configuration, etc for various different 
 types of Codecov Enterprise deployments.
@@ -26,3 +28,7 @@ PostgreSQL database and S3 bucket:
 # Contributing
 
 This repository welcomes contributions. If you make additions / changes to configuration files that you feel may be generally helpful, please submit a pull request.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fcodecov%2Fenterprise-resources.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fcodecov%2Fenterprise-resources?ref=badge_large)
