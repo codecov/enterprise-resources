@@ -1,0 +1,33 @@
+codecovVersion: 4.5.5
+
+# web deployment resources
+web:
+  replicas: 2
+  resources:
+    limits:
+      cpu: 512m
+      memory: 2048M
+    requests:
+      cpu: 256m
+      memory: 2048M
+
+# worker deployment resources
+worker:
+  replicas: 2
+  resources:
+    limits:
+      cpu: 512m
+      memory: 2048M
+    requests:
+      cpu: 256m
+      memory: 2048M
+
+# optional tags which are set as annotations on the web and worker deployments
+tags:
+  application: codecov
+  environment: test
+
+# these are intended to be overridden via --set-file.  They should not be set
+# in values.yaml
+codecovYaml: ""
+scmCaCert: null
