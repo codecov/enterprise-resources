@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "web" {
   metadata {
-    name = "web"
+    name        = "web"
     annotations = var.resource_tags
   }
   spec {
@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "web" {
         }
         container {
           name  = "web"
-          image = "codecov/enterprise:v${var.codecov_version}"
+          image = "codecov/enterprise-web:v${var.codecov_version}"
           args  = ["web"]
           port {
             container_port = 5000
@@ -45,7 +45,7 @@ resource "kubernetes_deployment" "web" {
             }
           }
           env {
-            name = "STATSD_PORT"
+            name  = "STATSD_PORT"
             value = "8125"
           }
           env {
@@ -65,11 +65,11 @@ resource "kubernetes_deployment" "web" {
             value = local.redis_url
           }
           env {
-            name = "SERVICES__MINIO__HOST"
+            name  = "SERVICES__MINIO__HOST"
             value = "minio"
           }
           env {
-            name = "SERVICES__MINIO__PORT"
+            name  = "SERVICES__MINIO__PORT"
             value = "9000"
           }
           env {
@@ -91,7 +91,7 @@ resource "kubernetes_deployment" "web" {
             }
           }
           env {
-            name = "SERVICES__MINIO__BUCKET"
+            name  = "SERVICES__MINIO__BUCKET"
             value = azurerm_storage_account.minio.name
           }
           resources {
@@ -131,7 +131,7 @@ resource "kubernetes_deployment" "web" {
 
 resource "kubernetes_service" "web" {
   metadata {
-    name = "web"
+    name        = "web"
     annotations = var.resource_tags
   }
   spec {
