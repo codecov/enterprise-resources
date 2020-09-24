@@ -1,6 +1,6 @@
 resource "kubernetes_deployment" "worker" {
   metadata {
-    name = "worker"
+    name        = "worker"
     annotations = var.resource_tags
   }
   spec {
@@ -31,7 +31,7 @@ resource "kubernetes_deployment" "worker" {
         }
         container {
           name  = "workers"
-          image = "codecov/enterprise:v${var.codecov_version}"
+          image = "codecov/enterprise-worker:v${var.codecov_version}"
           args  = ["worker", "--queue celery,uploads", "--concurrency 1"]
           env {
             name = "STATSD_HOST"
@@ -42,7 +42,7 @@ resource "kubernetes_deployment" "worker" {
             }
           }
           env {
-            name = "STATSD_PORT"
+            name  = "STATSD_PORT"
             value = "8125"
           }
           env {
@@ -62,11 +62,11 @@ resource "kubernetes_deployment" "worker" {
             value = local.redis_url
           }
           env {
-            name = "SERVICES__MINIO__HOST"
+            name  = "SERVICES__MINIO__HOST"
             value = "minio"
           }
           env {
-            name = "SERVICES__MINIO__PORT"
+            name  = "SERVICES__MINIO__PORT"
             value = "9000"
           }
           env {
@@ -88,7 +88,7 @@ resource "kubernetes_deployment" "worker" {
             }
           }
           env {
-            name = "SERVICES__MINIO__BUCKET"
+            name  = "SERVICES__MINIO__BUCKET"
             value = azurerm_storage_account.minio.name
           }
           resources {

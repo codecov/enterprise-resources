@@ -46,7 +46,7 @@ resource "azurerm_kubernetes_cluster" "codecov-enterprise" {
 }
 
 data "azurerm_public_ip" "egress-ip" {
-  name = split("/",sort(azurerm_kubernetes_cluster.codecov-enterprise.network_profile[0].load_balancer_profile[0].effective_outbound_ips)[0])[8]
+  name                = split("/", sort(azurerm_kubernetes_cluster.codecov-enterprise.network_profile[0].load_balancer_profile[0].effective_outbound_ips)[0])[8]
   resource_group_name = local.node_resource_group_name
 }
 
