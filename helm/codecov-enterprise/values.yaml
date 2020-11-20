@@ -3,6 +3,7 @@ codecovVersion: 4.5.5
 # web deployment resources
 web:
   replicas: 2
+  annotations: {}
   resources:
     limits:
       cpu: 512m
@@ -14,6 +15,7 @@ web:
 # worker deployment resources
 worker:
   replicas: 2
+  annotations: {}
   resources:
     limits:
       cpu: 512m
