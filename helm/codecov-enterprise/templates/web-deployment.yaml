@@ -20,6 +20,10 @@ spec:
     metadata:
       labels:
         app: web
+      annotations:
+      {{- range $key, $value := .Values.web.annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
     spec:
       containers:
       - args:

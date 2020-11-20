@@ -20,6 +20,10 @@ spec:
     metadata:
       labels:
         app: worker
+      annotations:
+      {{- range $key, $value := .Values.worker.annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
     spec:
       containers:
       - args:
