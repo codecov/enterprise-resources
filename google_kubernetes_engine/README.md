@@ -54,7 +54,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `gcloud_project` | Google cloud project name | required |
 | `region` | Google cloud region | us-east4 |
 | `zone` | Default Google cloud zone for zone-specific services | us-east4a |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.5.5 |
+| `codecov_version` | Version of codecov enterprise to deploy* | latest-stable |
 | `cluster_name` | Google Kubernetes Engine (GKE) cluster name | default-codecov-cluster |
 | `web_node_pool_count` | Number of nodes to create in the web node pool | 1 |
 | `worker_node_pool_count` | Number of nodes to create in the worker node pool | 1 |
@@ -75,6 +75,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `tls_cert` | Path to certificate to use for TLS | required if enable_https=1  |
 | `resource_tags` | Map of tags to include in compatible resources | `{application=codecov, environment=test}` |
 | `scm_ca_cert` | Optional SCM CA certificate path in PEM format | |
+\* Specifying a codecov_version is recommended and requires the format `v$VERSION` e.g. `v4.5.8`
 
 ### `scm_ca_cert`
 

@@ -60,7 +60,7 @@ defined in a `terraform.tfvars` file.  More info on
 | name | description | default |
 | --- | --- | --- |
 | `region` | AWS region | us-east-1 |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.5.5 |
+| `codecov_version` | Version of codecov enterprise to deploy* | latest-stable |
 | `cluster_name` | Google Kubernetes Engine (GKE) cluster name | default-codecov-cluster |
 | `postgres_instance_class` | Instance class for PostgreSQL RDS instance | db.t3.medium |
 | `postgres_skip_final_snapshot` | Whether to skip taking a final snapshot when destroying the Postgres DB. It is recommended to keep this set to 0 in production in order to avoid unintended data loss. | 0 |
@@ -81,6 +81,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `tls_cert` | Path to certificate to use for TLS | required if enable_https=1 |
 | `resource_tags` | Map of tags to include in compatible resources | `{application=codecov, environment=test}` |
 | `scm_ca_cert` | Optional SCM CA certificate path in PEM format | |
+\* Specifying a codecov_version is recommended and requires the format `v$VERSION` e.g. `v4.5.8`
 
 ### `scm_ca_cert`
 

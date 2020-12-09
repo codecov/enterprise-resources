@@ -34,13 +34,14 @@ arise as a result of their use.
 
 | name | description | default |
 | --- | --- | --- |
-| `codecov_version` | Version of Codecov Enterprise to deploy | 4.5.5 |
+| `codecov_version` | Version of Codecov Enterprise to deploy* | latest-stable |
 | `web_replicas` | Number of web pod replicas to run | 2 |
 | `worker_replicas` | Number of worker pod replicas to run | 2 |
 | `codecov_yml` | Path to your enterprise [codecov.yml](https://docs.codecov.io/docs/configuration). [example](codecov.yml.example) | required |
 | `resource_tags` | Map of tags to include in compatible resources | `{application=codecov, environment=test}` |
 | `scm_ca_cert` | Optional SCM CA certificate path in PEM format | |
 
+\* Specifying a codecov_version is recommended and requires the format `v$VERSION` e.g. `v4.5.8`
 ### `scm_ca_cert`
 
 If `scm_ca_cert` is configured, it will be available to Codecov at
@@ -55,7 +56,7 @@ config.
     # example module definition
     module "codecov" {
       source = "git@github.com:codecov/enterprise-resources.git//terraform-k8s-codecov"
-      codecov_version = "4.5.5"
+      codecov_version = "latest-stable"
       web_replicas = "2"
       worker_replicas = "2"
       codecov_yml = "${path.module}/codecov.yml"

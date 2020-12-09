@@ -13,7 +13,7 @@ variable "azurerm_client_secret" {
 
 variable "codecov_version" {
   description = "Version of codecov enterprise to deploy"
-  default     = "4.5.5"
+  default     = "latest-stable"
 }
 
 variable "cluster_name" {
