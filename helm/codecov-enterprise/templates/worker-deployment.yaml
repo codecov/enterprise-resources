@@ -36,7 +36,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: status.hostIP
-        image: codecov/enterprise-worker:v{{ .Values.codecovVersion }}
+        image: codecov/enterprise-worker:{{ .Values.codecovVersion }}
         imagePullPolicy: Always
         name: workers
         resources:

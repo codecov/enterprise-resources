@@ -1,9 +1,8 @@
-codecovVersion: 4.5.5
+codecovVersion: latest-stable
 
 # web deployment resources
 web:
   replicas: 2
-  annotations: {}
   resources:
     limits:
       cpu: 512m

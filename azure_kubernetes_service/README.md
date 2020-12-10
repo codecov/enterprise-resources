@@ -60,7 +60,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `location` | Azure location | eastus |
 | `azurerm_client_id` | `appId` from the SP creation output | |
 | `azurerm_client_secret` | `password` from the SP creation output | |
-| `codecov_version` | Version of codecov enterprise to deploy | 4.5.5 |
+| `codecov_version` | Version of codecov enterprise to deploy* | latest-stable |
 | `cluster_name` | Azure Kubernetes Service (AKS) cluster name | default-codecov-cluster |
 | `node_pool_count` | Number of nodes to configure in the node pool | 5 |
 | `node_pool_vm_size` | VM size to use for node pool nodes | Standard_B2s |
@@ -79,6 +79,7 @@ defined in a `terraform.tfvars` file.  More info on
 | `ssh_public_key` | SSH public key path, used for the Kubernetes cluster | |
 | `resource_tags` | Map of tags to include in compatible resources | `{application=codecov, environment=test}` |
 | `scm_ca_cert` | Optional SCM CA certificate path in PEM format | |
+\* Specifying a codecov_version is recommended and requires the format `v$VERSION` e.g. `v4.5.8`
 
 ### `scm_ca_cert`
 

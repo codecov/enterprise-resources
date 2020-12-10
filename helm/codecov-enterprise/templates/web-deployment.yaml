@@ -34,7 +34,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: status.hostIP
-        image: codecov/enterprise-web:v{{ .Values.codecovVersion }}
+        image: codecov/enterprise-web:{{ .Values.codecovVersion }}
         imagePullPolicy: Always
         name: web
         ports:

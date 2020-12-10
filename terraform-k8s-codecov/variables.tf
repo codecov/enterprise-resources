@@ -1,6 +1,6 @@
 variable "codecov_version" {
   description = "Version of Codecov Enterprise to deploy"
-  default     = "4.5.5"
+  default     = "latest-stable"
 }
 
 variable "web_replicas" {
