@@ -2,7 +2,9 @@ codecovVersion: latest-stable
 
 # web deployment resources
 web:
+  image: codecov/enterprise-web
   replicas: 2
+  annotations: {}
   resources:
     limits:
       cpu: 512m
@@ -11,8 +13,23 @@ web:
       cpu: 256m
       memory: 2048M
 
+api:
+  image: codecov/enterprise-api
+  annotations: {}
+  replicas: 2
+  port: 8000
+  servicePort: 8000
+  resources:
+    limits:
+      cpu: 512m
+      memory: 2048M
+    requests:
+      cpu: 256m
+      memory: 1024M
+
 # worker deployment resources
 worker:
+  image: codecov/enterprise-worker
   replicas: 2
   annotations: {}
   resources:
@@ -26,7 +43,6 @@ worker:
 # optional tags which are set as annotations on the web and worker deployments
 tags:
   application: codecov
-  environment: test
 
 # these are intended to be overridden via --set-file.  They should not be set
 # in values.yaml

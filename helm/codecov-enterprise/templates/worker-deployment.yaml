@@ -30,13 +30,7 @@ spec:
         - worker
         - --queue celery,uploads
         - --concurrency 1
-        env:
-        - name: STATSD_HOST
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: status.hostIP
-        image: codecov/enterprise-worker:{{ .Values.codecovVersion }}
+        image: {{ .Values.worker.image }}:{{ .Values.codecovVersion }}
         imagePullPolicy: Always
         name: workers
         resources:
