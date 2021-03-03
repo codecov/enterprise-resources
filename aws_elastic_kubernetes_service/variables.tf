@@ -69,10 +69,10 @@ variable "api_resources" {
   type = map
   default = {
     replicas       = 2
-    cpu_limit      = "512m"
-    memory_limit   = "2048M"
-    cpu_request    = "256m"
-    memory_request = "2048M"
+    cpu_limit      = "256m"
+    memory_limit   = "512M"
+    cpu_request    = "32m"
+    memory_request = "64M"
   }
 }
 
