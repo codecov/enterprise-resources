@@ -65,6 +65,17 @@ variable "web_resources" {
   }
 }
 
+variable "api_resources" {
+  type = map
+  default = {
+    replicas       = 2
+    cpu_limit      = "512m"
+    memory_limit   = "2048M"
+    cpu_request    = "256m"
+    memory_request = "2048M"
+  }
+}
+
 variable "worker_resources" {
   type = map
   default = {
