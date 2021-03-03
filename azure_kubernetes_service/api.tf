@@ -30,9 +30,8 @@ resource "kubernetes_deployment" "api" {
           }
         }
         container {
-          name  = "web"
+          name  = "api"
           image = "codecov/enterprise-api:${var.codecov_version}"
-          args  = ["web"]
           port {
             container_port = 5000
           }
