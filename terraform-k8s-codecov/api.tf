@@ -1,19 +1,19 @@
-resource "kubernetes_deployment" "web" {
+resource "kubernetes_deployment" "api" {
   metadata {
-    name = "web"
+    name = "api"
     annotations = var.resource_tags
   }
   spec {
-    replicas = var.web_replicas
+    replicas = var.api_replicas
     selector {
       match_labels = {
-        app = "web"
+        app = "api"
       }
     }
     template {
       metadata {
         labels = {
-          app = "web"
+          app = "api"
         }
       }
       spec {
@@ -30,10 +30,10 @@ resource "kubernetes_deployment" "web" {
           }
         }
         container {
-          name  = "web"
-          image = "codecov/enterprise-web:${var.codecov_version}"
+          name  = "api"
+          image = "codecov/enterprise-api:${var.codecov_version}"
           port {
-            container_port = 5000
+            container_port = 8000
           }
           env {
             name = "STATSD_HOST"
@@ -55,8 +55,8 @@ resource "kubernetes_deployment" "web" {
           }
           readiness_probe {
             http_get {
-              path = "/login"
-              port = "5000"
+              path = "/health"
+              port = "8000"
             }
             initial_delay_seconds = 5
             period_seconds        = 5
@@ -78,19 +78,19 @@ resource "kubernetes_deployment" "web" {
   }
 }
 
-resource "kubernetes_service" "web" {
+resource "kubernetes_service" "api" {
   metadata {
-    name = "web"
+    name = "api"
     annotations = var.resource_tags
   }
   spec {
     port {
       protocol    = "TCP"
-      port        = "5000"
-      target_port = "5000"
+      port        = "8000"
+      target_port = "8000"
     }
     selector = {
-      app = "web"
+      app = "api"
     }
     type = "NodePort"
   }

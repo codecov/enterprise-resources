@@ -8,6 +8,11 @@ variable "web_replicas" {
   default     = "2"
 }
 
+variable "api_replicas" {
+  description = "Number of api replicas to deploy"
+  default     = "2"
+}
+
 variable "worker_replicas" {
   description = "Number of worker replicas to deploy"
   default     = "2"

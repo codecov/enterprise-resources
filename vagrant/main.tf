@@ -2,6 +2,7 @@ module "codecov" {
   source = "../terraform-k8s-codecov"
   config_context = "kubernetes-admin@kubernetes"
   web_replicas = "2"
+  api_replicas = "2"
   worker_replicas = "2"
   minio_replicas = "4"
   codecov_yml = "${var.codecov_yml}"
