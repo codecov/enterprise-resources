@@ -1,23 +1,24 @@
-resource "kubernetes_deployment" "web" {
+resource "kubernetes_deployment" "api" {
   metadata {
-    name = "web"
+    name = "api"
     annotations = var.resource_tags
   }
   spec {
-    replicas = var.web_resources["replicas"]
+    replicas = var.api_resources["replicas"]
     selector {
       match_labels = {
-        app = "web"
+        app = "api"
       }
     }
     template {
       metadata {
         labels = {
-          app = "web"
+          app = "api"
         }
       }
       spec {
         node_selector = {
+          #Run the api pods on the web nodes as they are lightweight. This can be split out if needed.
           "kubernetes.io/role" = "web"
         }
         service_account_name = kubernetes_service_account.codecov.metadata[0].name
@@ -40,10 +41,10 @@ resource "kubernetes_deployment" "web" {
           }
         }
         container {
-          name  = "web"
-          image = "codecov/enterprise-web:${var.codecov_version}"
+          name  = "api"
+          image = "codecov/enterprise-api:${var.codecov_version}"
           port {
-            container_port = 5000
+            container_port = 8000
           }
           env {
             name = "STATSD_HOST"
@@ -65,32 +66,20 @@ resource "kubernetes_deployment" "web" {
             name  = "SERVICES__REDIS_URL"
             value = local.redis_url
           }
-          env {
-            name  = "SERVICES__MINIO__HOST"
-            value = "s3.amazonaws.com"
-          }
-          env {
-            name  = "SERVICES__MINIO__BUCKET"
-            value = aws_s3_bucket.minio.id
-          }
-          env {
-            name  = "SERVICES__MINIO__IAM_AUTH"
-            value = "true"
-          }
           resources {
             limits {
-              cpu    = var.web_resources["cpu_limit"]
-              memory = var.web_resources["memory_limit"]
+              cpu    = var.api_resources["cpu_limit"]
+              memory = var.api_resources["memory_limit"]
             }
             requests {
-              cpu    = var.web_resources["cpu_request"]
-              memory = var.web_resources["memory_request"]
+              cpu    = var.api_resources["cpu_request"]
+              memory = var.api_resources["memory_request"]
             }
           }
           readiness_probe {
             http_get {
-              path = "/login"
-              port = "5000"
+              path = "/health"
+              port = "8000"
             }
             initial_delay_seconds = 5
             period_seconds        = 5
@@ -121,19 +110,19 @@ resource "kubernetes_deployment" "web" {
   }
 }
 
-resource "kubernetes_service" "web" {
+resource "kubernetes_service" "api" {
   metadata {
-    name = "web"
+    name = "api"
     annotations = var.resource_tags
   }
   spec {
     port {
       protocol    = "TCP"
-      port        = "5000"
-      target_port = "5000"
+      port        = "8000"
+      target_port = "8000"
     }
     selector = {
-      app = "web"
+      app = "api"
     }
   }
 }

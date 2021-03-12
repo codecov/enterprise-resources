@@ -25,7 +25,7 @@ such as Minio.
 | `codecovYml` | Path to your enterprise [codecov.yml](https://docs.codecov.io/docs/configuration). [example](codecov.yml.example) | required |
 | `scmCaCert` | Path to optional SCM CA certificate in PEM format | |
 
-Additional configuration including the number of web and worker replicas and
+Additional configuration including the number of web, api, and worker replicas and
 their CPU and memory limits can be tuned by overriding `values.yaml`.  See
 [codecov-enterprise/values.yaml](codecov-enterprise/values.yaml) for the
 available variables.
@@ -34,8 +34,14 @@ available variables.
 
 ```
 helm install \
-	--generate-name \
+	codecov \
 	--set-file codecovYaml=./codecov.yml \
 	--values values.yaml 
 	./codecov-enterprise/
+```
+
+## Upgrade
+
+```
+helm upgrade codecov --set-file codecovYaml=./codecov.yaml .
 ```

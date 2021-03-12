@@ -1,19 +1,19 @@
-resource "kubernetes_deployment" "web" {
+resource "kubernetes_deployment" "api" {
   metadata {
-    name = "web"
+    name        = "api"
     annotations = var.resource_tags
   }
   spec {
-    replicas = var.web_replicas
+    replicas = var.api_resources["replicas"]
     selector {
       match_labels = {
-        app = "web"
+        app = "api"
       }
     }
     template {
       metadata {
         labels = {
-          app = "web"
+          app = "api"
         }
       }
       spec {
@@ -30,8 +30,8 @@ resource "kubernetes_deployment" "web" {
           }
         }
         container {
-          name  = "web"
-          image = "codecov/enterprise-web:${var.codecov_version}"
+          name  = "api"
+          image = "codecov/enterprise-api:${var.codecov_version}"
           port {
             container_port = 5000
           }
@@ -43,20 +43,40 @@ resource "kubernetes_deployment" "web" {
               }
             }
           }
+          env {
+            name  = "STATSD_PORT"
+            value = "8125"
+          }
+          env {
+            name  = "DATABASE_USERNAME"
+            value = local.postgres_username
+          }
+          env {
+            name  = "DATABASE_PASSWORD"
+            value = local.postgres_password
+          }
+          env {
+            name  = "DATABASE_HOST"
+            value = local.postgres_host
+          }
+          env {
+            name  = "SERVICES__REDIS_URL"
+            value = local.redis_url
+          }
           resources {
             limits {
-              cpu    = "256m"
-              memory = "512M"
+              cpu    = var.api_resources["cpu_limit"]
+              memory = var.api_resources["memory_limit"]
             }
             requests {
-              cpu    = "32m"
-              memory = "64M"
+              cpu    = var.api_resources["cpu_request"]
+              memory = var.api_resources["memory_request"]
             }
           }
           readiness_probe {
             http_get {
-              path = "/login"
-              port = "5000"
+              path = "/health"
+              port = "8000"
             }
             initial_delay_seconds = 5
             period_seconds        = 5
@@ -78,21 +98,19 @@ resource "kubernetes_deployment" "web" {
   }
 }
 
-resource "kubernetes_service" "web" {
+resource "kubernetes_service" "api" {
   metadata {
-    name = "web"
+    name        = "api"
     annotations = var.resource_tags
   }
   spec {
     port {
       protocol    = "TCP"
-      port        = "5000"
-      target_port = "5000"
+      port        = "8000"
+      target_port = "8000"
     }
     selector = {
-      app = "web"
+      app = "api"
     }
-    type = "NodePort"
   }
 }
-

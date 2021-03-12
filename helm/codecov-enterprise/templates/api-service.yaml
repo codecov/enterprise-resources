@@ -5,12 +5,12 @@ metadata:
   {{- range $key, $val := .Values.tags }}
     {{ $key }}: {{ $val | quote }}
   {{- end }}
-  name: web
+  name: api
 spec:
   ports:
-  - port: 5000
+  - port: {{ .Values.api.servicePort }}
     protocol: TCP
-    targetPort: 5000
+    targetPort: {{ .Values.api.port }}
   selector:
-    app: web
+    app: api
   type: NodePort

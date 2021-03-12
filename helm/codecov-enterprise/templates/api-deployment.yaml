@@ -5,12 +5,12 @@ metadata:
   {{- range $key, $val := .Values.tags }}
     {{ $key }}: {{ $val | quote }}
   {{- end }}
-  name: web
+  name: api
 spec:
-  replicas: {{ .Values.web.replicas }}
+  replicas: {{ .Values.api.replicas }}
   selector:
     matchLabels:
-      app: web
+      app: api
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -19,24 +19,30 @@ spec:
   template:
     metadata:
       labels:
-        app: web
+        app: api
       annotations:
-      {{- range $key, $value := .Values.web.annotations }}
+      {{- range $key, $value := .Values.api.annotations }}
         {{ $key }}: {{ $value | quote }}
       {{- end }}
     spec:
       containers:
-      - image: {{ .Values.web.image }}:{{ .Values.codecovVersion }}
+      - env:
+        - name: THIS_POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        image: {{ .Values.api.image }}:{{ .Values.codecovVersion }}
         imagePullPolicy: Always
-        name: web
+        name: api
         ports:
-        - containerPort: 5000
+        - containerPort: {{ .Values.api.port }}
           protocol: TCP
         readinessProbe:
           failureThreshold: 3
           httpGet:
-            path: /login
-            port: 5000
+            path: /
+            port: {{ .Values.api.port }}
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 5
@@ -44,11 +50,11 @@ spec:
           timeoutSeconds: 1
         resources: 
           limits:
-            cpu: {{ .Values.web.resources.limits.cpu }}
-            memory: {{ .Values.web.resources.limits.memory }}
+            cpu: {{ .Values.api.resources.limits.cpu }}
+            memory: {{ .Values.api.resources.limits.memory }}
           requests:
-            cpu: {{ .Values.web.resources.requests.cpu }}
-            memory: {{ .Values.web.resources.requests.memory }}
+            cpu: {{ .Values.api.resources.requests.cpu }}
+            memory: {{ .Values.api.resources.requests.memory }}
         volumeMounts:
         - mountPath: /config
           name: codecov-yml
