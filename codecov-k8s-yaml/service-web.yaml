@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-03-26T12:59:09Z"
+  name: web
+  namespace: default
+  resourceVersion: "184274"
+  selfLink: /api/v1/namespaces/default/services/web
+  uid: 531aa620-1851-4043-8336-5544d984d5b5
+spec:
+  clusterIP: 10.102.31.39
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30324
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: web
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

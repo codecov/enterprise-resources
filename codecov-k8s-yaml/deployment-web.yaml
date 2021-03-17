@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  creationTimestamp: "2020-03-30T13:27:38Z"
+  generation: 6
+  name: web
+  namespace: default
+  resourceVersion: "1134690"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/web
+  uid: a3cf7e2c-7b69-47fc-acc6-de7fe77c3d29
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: web
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - args:
+        - web
+        env:
+        - name: STATSD_HOST
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        image: codecov/enterprise:v4.4.12
+        imagePullPolicy: Always
+        name: web
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /login
+            port: 5000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 256m
+            memory: 512M
+          requests:
+            cpu: 32m
+            memory: 64M
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /config
+          mountPropagation: None
+          name: codecov-yml
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: codecov-yml
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: codecov-yml
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2020-03-30T13:27:38Z"
+    lastUpdateTime: "2020-03-31T12:50:09Z"
+    message: ReplicaSet "web-695794c874" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2020-03-31T13:09:49Z"
+    lastUpdateTime: "2020-03-31T13:09:49Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 6
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
