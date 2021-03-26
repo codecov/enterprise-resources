@@ -60,6 +60,10 @@ resource "kubernetes_deployment" "api" {
             value = local.postgres_host
           }
           env {
+            name  = "SERVICES__DATABASE_URL"
+            value = local.postgres_url
+          }
+          env {
             name  = "SERVICES__REDIS_URL"
             value = local.redis_url
           }
